@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Status Catalog";
+}
+
+    <div class="container roboto-regular" id="root">
+        <div class="page-header">
+            <h1>Status Order Catalog</h1>
+        </div>
+        <div class="row">
+            <ul>
+                <li v-for="item in listStatus">{{item.OrderStatusId}} - {{item.Name}}</li>
+            </ul>
+        </div>
+    </div>
+
+@section scripts{
+    <script>
+        getUrl = window.location;
+        url_base = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        url_base = url_base.toLowerCase();
+    </script>
+    <script src="~/Scripts/axios.min.js"></script>
+    <script src="~/Scripts/sweetalert2@10.js"></script>
+    <script src="~/Scripts/App/OrderStatus.vue.js"></script>
+}

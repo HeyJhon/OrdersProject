@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Orders";
+}
+
+    <div class="container roboto-regular" id="root">
+        <div class="page-header">
+            <h1>Orders</h1>
+        </div>
+
+        <div class="row d-flex justify-content-center mt-4">
+            <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6"> 
+                        <div class="card"  v-for="order in listOrders">
+                            <div class="card-header">
+                                <label class="font-weight-bold">
+                                    Order #{{order.OrderIdFormat}} <span class="badge badge-info">{{formatStatusBadge(order.OrderStatusId)}}</span>
+                                </label>
+                                <hr />
+                                <span class="font-weight-light">
+                                    Products
+                                </span>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <ul class="list-group list-group-flush">
+                                        <li v-for="(item, index) in order.Orders" class="list-group-item">{{item.ProductName}} - {{item.Quantity}}</li>
+                                    </ul>                                   
+                                </div>
+                                <div class="col-4">
+                                    <div class="card-body">
+                                        <button class="btn btn-success btn-block" v-on:click="SetStatus(order, 0)" v-bind:disabled="order.OrderStatusId>3">
+                                            <i class="fa fa-arrow-right"></i>
+                                            &nbsp; {{formatStatusButton(order.OrderStatusId + 1)}}
+                                        </button>
+
+                                        <button class="btn btn-danger btn-block" v-on:click="SetStatus(order, 1)" v-bind:disabled="order.OrderStatusId>3">
+                                            <i class="fa fa-trash "></i>
+                                            &nbsp; Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+          
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+@section scripts{
+    <script>
+        getUrl = window.location;
+        url_base = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        url_base = url_base.toLowerCase();
+        url_base = url_base.replace('/orders', '');
+
+    </script>
+    <script src="~/Scripts/axios.min.js"></script>
+    <script src="~/Scripts/sweetalert2@10.js"></script>
+    <script src="~/Scripts/App/Oders.vue.js"></script>
+}

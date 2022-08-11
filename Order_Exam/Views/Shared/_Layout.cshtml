@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/font-roboto.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+
+    <nav class="navbar navbar-light bg-light" id="barra_navegacion">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                <img src="~/Content/images/icon.gif" alt="" width="30" height="24" class="d-inline-block align-top">
+                <span class="roboto-black"> Happy Food </span>
+            </a>
+
+            <a class="navbar-brand" href="@Url.Action("Index","Products")">
+                <span class="roboto-black"> Products </span>
+            </a>
+
+            <a class="navbar-brand" href="@Url.Action("Index","OrderStatus")">
+                <span class="roboto-black"> Catalog Status </span>
+            </a>
+            <a class="nav-link btn btn-warning" href="@Url.Action("Index","Orders")">
+                Orders
+            </a>
+        </div>
+    </nav>
+
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Orders", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+                    <li>@Html.ActionLink("Status Catalog", "Index", "OrderStatus")</li>
+                </ul>
+            </div>
+        </div>
+    </div>*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/vue.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

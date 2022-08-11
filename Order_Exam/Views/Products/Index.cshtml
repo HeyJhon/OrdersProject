@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container roboto-regular" id="root">
+    <div class="page-header">
+        <h1>Products</h1>
+    </div>
+    
+    <div class="row d-flex justify-content-center mt-4">
+        <div class="col-9 col-md-9 col-lg-9">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4  mb-2" v-for="(item, index) in listProducts">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">{{item.Name}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <img role="button" v-bind:src="'/Content/images/' + item.Image + '.png'" v-on:click="GetImageDetail('/Content/images/' + item.Image + '_details.png')" class="card-img-top" width="180" height="240">
+                            <div class="center-muestra" role="button" v-on:click="GetImageDetail('/Content/images/' + item.Image + '_details.png')">
+                                <img v-bind:src="'/Content/images/' + item.Image +'_mini.png'" class="rounded-circle border-muestra text-center">
+                            </div>
+                            <p class="card-text text-center">
+                                <span v-if="item.Stock>0" class="roboto-ligth">Available:&nbsp;<b>{{item.Stock}}</b></span>
+                                <span v-else class="roboto-ligth">Stock Zero</span>
+                                <br />
+                                <span class="roboto-ligth">Precio: <b>${{item.Price.toFixed(2)}}</b></span>
+                                <hr />
+
+                                <div class="text-center">
+                                    <h5 v-if="item.Stock == 0 && item.Quantity == 0"><span class="badge badge-secondary roboto-ligth">Agotado</span></h5>
+                                    <h5 v-else><span class="roboto-ligth badge " v-bind:class="(item.Quantity==0)?'badge-secondary':'badge-success'">Pedidos:&nbsp;<b>{{item.Quantity}}</b></span></h5>
+                                    <button v-bind:disabled="item.Stock == 0" class="btn btn-warning" v-on:click="Add(index)"><i class="fa fa-plus"></i></button> &nbsp;
+                                    <button v-bind:disabled="item.Quantity == 0" class="btn btn-warning " v-on:click="Substract(index)"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-lg-3 mb-2 roboto-ligth">
+
+            <form action="">
+                <div class="form-group ">
+                    <label for="txtNombre">Customer Id:</label>
+                    <select class="form-control required" v-model="order.CustomerId" required>
+                        <option value="1">Customer 1</option>
+                        <option value="2">Customer 2</option>
+                        <option value="3">Customer 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtUbicacion">User</label>
+                    <select class="form-control required" v-model="order.UserId" required>
+                        <option value="1">Jhon</option>
+                        <option value="2">Bob</option>
+                        <option value="3">Richard</option>
+                    </select>
+                </div>
+               
+
+                <div class="form-group">
+                    <h4>Total: <b>${{totalPrice.toFixed(2)}}</b></h4>
+                </div>
+                <button v-bind:disabled="totalPrice<=0" class="btn btn-success btn-lg" v-on:click="CreateOrder">Create Order</button>
+            </form>
+        </div>
+    </div>
+
+
+   
+</div>
+
+
+@section scripts{
+    <script>
+        getUrl = window.location;
+        url_base = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        url_base = url_base.toLowerCase();
+        url_base = url_base.replace('/products', '');
+
+    </script>
+    <script src="~/Scripts/axios.min.js"></script>
+    <script src="~/Scripts/sweetalert2@10.js"></script>
+    <script src="~/Scripts/App/Products.vue.js"></script>
+}
